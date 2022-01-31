@@ -1,5 +1,5 @@
 import random
-
+import io
 def selectionLettres(monMot):
     #Permet de choisir 2 lettres successives à partir d'une position aléatoire
     positionAlea=random.randint(0, len(monMot)-2)
@@ -8,18 +8,22 @@ def selectionLettres(monMot):
     #Permet de retourner 2 lettres à partir de la position aléatoire (d'où le + 2)
 
 
+
 vies=3;
 score=0;
 mots = [] #Liste pour stocker les mots du fichier dictionnaire
-with open('dictionnaire_francais.txt') as fichier:
-    mots = fichier.read().splitlines()
+
+fichier = io.open('dictionnaire_francais.txt', 'r', encoding='utf-8')
+
+mots = fichier.read().splitlines()
     #On lit le fichier et on stock les mots. (.splitlines() permet de résoudre un problème de retour à la ligne qui s'ajoute après chaque mot)
 
 while vies > 0:   #On joue tant qu'on a toutes nos vies
     mot= random.choice(mots)  #On choisi un mot aléatoire
+   
+    print(f"Le mot était: {mot} ")
     lettresAtrouver=selectionLettres(mot) #On selectionne 2 lettres à partir du mot
     motPropose = input(f"Trouvez un mot contenant ({lettresAtrouver}) ")
-
     if lettresAtrouver in motPropose:  #Il faut deja que le mot proposé par le joueur contienne les 2 lettres
         if motPropose in mots :   #Verifier que le mot proposé par le joueur est dans le dictionnaire
             score+=1
